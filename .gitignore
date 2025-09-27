@@ -1,0 +1,59 @@
+# ===================
+# BACKEND - BARBERIA API (Spring Boot)
+# ===================
+backend/target/
+backend/.mvn/
+backend/mvnw
+backend/mvnw.cmd
+backend/.settings/
+backend/.project
+backend/.classpath
+backend/bin/
+backend/logs/
+backend/*.log
+
+# Archivos JAR/WAR
+*.jar
+*.war
+*.ear
+
+# Base de datos local
+backend/*.db
+backend/database/
+
+# Configuración sensible
+backend/src/main/resources/application-prod.properties
+backend/src/main/resources/application-dev.properties
+
+# ===================
+# FRONTEND - BARBERIA
+# ===================
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+frontend/.cache/
+frontend/.parcel-cache/
+
+# ===================
+# IDEs
+# ===================
+.vscode/
+.idea/
+*.iml
+.eclipse/
+.metadata/
+.settings/
+
+# ===================
+# SISTEMA
+# ===================
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# ===================
+# ARCHIVOS TEMPORALES
+# ===================
+*.tmp
+*.temp
+*~
