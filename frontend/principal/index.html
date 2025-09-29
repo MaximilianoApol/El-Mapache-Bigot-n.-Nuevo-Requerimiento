@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El Mapache Bigotón - Barbería</title>
+  
+  <!-- Bootstrap local -->
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Font Awesome y Google Fonts -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Estilos propios -->
+  <link href="style.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#"><i class="fas fa-cut"></i>El Mapache Bigotón</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="#principal">Principal</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#barberos">Barberos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#servicios">Servicios</a>
+          </li>
+        </ul>
+        <button class="btn btn-login" onclick="verCitasRegistradas()">
+          <i class="fas fa-calendar-check"></i> Citas Registradas
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="principal" class="hero">
+    <div class="hero-content">
+      <h1>El Arte del Buen Corte</h1>
+      <p>Donde la tradición se encuentra con el estilo moderno</p>
+      <a href="#servicios" class="hero-btn">
+        <i class="fas fa-calendar-alt"></i> Reservar Cita
+      </a>
+    </div>
+  </section>
+
+  <!-- Barberos Section -->
+  <section id="barberos" class="section barberos">
+    <div class="container">
+      <div class="section-title">
+        <h2>Nuestros Maestros Barberos</h2>
+        <p>Conoce a nuestro equipo de expertos, cada uno con su propio estilo y especialidad</p>
+      </div>
+      <div class="row" id="barberos-container">
+        <div class="col-12 text-center">
+          <div class="loading"></div>
+          <p>Cargando barberos...</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Servicios Section -->
+  <section id="servicios" class="section">
+    <div class="container">
+      <div class="section-title">
+        <h2>Nuestros Servicios</h2>
+        <p>Desde cortes clásicos hasta los estilos más modernos, tenemos todo lo que necesitas</p>
+      </div>
+      <div class="row" id="servicios-container">
+        <div class="col-12 text-center">
+          <div class="loading"></div>
+          <p>Cargando servicios...</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <!-- Info -->
+        <div class="col-lg-4 col-md-6 mb-4">
+          <h5><i class="fas fa-cut"></i> El Mapache Bigotón</h5>
+          <p>La barbería donde la tradición y el estilo se encuentran. Más de 10 años creando looks únicos.</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+        <!-- Ubicación -->
+        <div class="col-lg-4 col-md-6 mb-4">
+          <h5><i class="fas fa-map-marker-alt"></i> Ubicación</h5>
+          <p><i class="fas fa-home"></i> Calle Principal #123<br>Centro, Ciudad</p>
+          <p><i class="fas fa-phone"></i> +52 228 123 4567</p>
+          <p><i class="fas fa-envelope"></i> info@elmapachebigoton.com</p>
+        </div>
+        <!-- Horarios -->
+        <div class="col-lg-4 col-md-6 mb-4">
+          <h5><i class="fas fa-clock"></i> Horarios</h5>
+          <p><strong>Lunes - Viernes:</strong><br>9:00 AM - 8:00 PM</p>
+          <p><strong>Sábados:</strong><br>9:00 AM - 6:00 PM</p>
+          <p><strong>Domingos:</strong><br>10:00 AM - 4:00 PM</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 El Mapache Bigotón. Todos los derechos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
