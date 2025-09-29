@@ -16,6 +16,7 @@ Sistema integral para gestión de barbería con API REST y frontend web.
 - **Frontend Módulo Principal**: Maximiliano Apolonio Cayetano
 - **Frontend Módulo Reservar citas**: Geovanni Huerta Santiago  
 - **Frontend Módulo Citas registradas**: Angel Herrera Damián
+- **Diseño de los etilos de la interfaz gráfica**: Orlando López Valera
 
 ## Instrucciones para colaboradores
 1. `git clone [url]`
