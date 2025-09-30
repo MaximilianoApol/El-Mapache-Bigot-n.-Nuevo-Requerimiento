@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Citas Registradas - El Mapache Bigotón</title>
+  
+  <!-- Bootstrap local -->
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Font Awesome y Google Fonts -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Estilos propios -->
+  <link href="style.css" rel="stylesheet">
+  <link href="citas-registradas.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html"><i class="fas fa-cut"></i>El Mapache Bigotón</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html#principal">Principal</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="index.html#barberos">Barberos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="index.html#servicios">Servicios</a>
+          </li>
+        </ul>
+        <button class="btn btn-login" onclick="verCitasRegistradas()">
+          <i class="fas fa-calendar-check"></i> Citas Registradas
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Citas Registradas Section -->
+  <section class="citas-section">
+    <div class="container">
+      <div class="citas-header">
+        <h2><i class="fas fa-calendar-check"></i> Citas Registradas</h2>
+        <p>Gestión y visualización de todas las citas programadas</p>
+        <div class="header-actions">
+          <button class="btn btn-primary" onclick="window.location.href='reservar-cita.html'">
+            <i class="fas fa-plus"></i> Nueva Cita
+          </button>
+          <button class="btn btn-secondary" onclick="actualizarCitas()">
+            <i class="fas fa-sync-alt"></i> Actualizar
+          </button>
+        </div>
+      </div>
+
+      <!-- Filtros -->
+      <div class="filtros-container">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="form-group">
+              <label for="filtroFecha">Filtrar por fecha:</label>
+              <input type="date" class="form-control" id="filtroFecha" onchange="aplicarFiltros()">
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label for="filtroBarbero">Filtrar por barbero:</label>
+              <select class="form-control" id="filtroBarbero" onchange="aplicarFiltros()">
+                <option value="">Todos los barberos</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label for="filtroCliente">Buscar cliente:</label>
+              <input type="text" class="form-control" id="filtroCliente" placeholder="Nombre del cliente" onkeyup="aplicarFiltros()">
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>&nbsp;</label>
+              <button class="btn btn-outline-secondary btn-block" onclick="limpiarFiltros()">
+                <i class="fas fa-eraser"></i> Limpiar Filtros
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Estadísticas -->
+      <div class="estadisticas-container">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="stat-card">
+              <div class="stat-icon">
+                <i class="fas fa-calendar-day"></i>
+              </div>
+              <div class="stat-info">
+                <h4 id="totalCitas">0</h4>
+                <p>Total de Citas</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="stat-card">
+              <div class="stat-icon">
+                <i class="fas fa-calendar-check"></i>
+              </div>
+              <div class="stat-info">
+                <h4 id="citasHoy">0</h4>
+                <p>Citas Hoy</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="stat-card">
+              <div class="stat-icon">
+                <i class="fas fa-users"></i>
+              </div>
+              <div class="stat-info">
+                <h4 id="totalClientes">0</h4>
+                <p>Clientes Únicos</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="stat-card">
+              <div class="stat-icon">
+                <i class="fas fa-dollar-sign"></i>
+              </div>
+              <div class="stat-info">
+                <h4 id="ingresosDia">$0</h4>
+                <p>Ingresos del Día</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabla de Citas -->
+      <div class="citas-table-container">
+        <div class="table-header">
+          <h4><i class="fas fa-list"></i> Lista de Citas</h4>
+          <div class="table-actions">
+            <div class="view-toggle">
+              <button class="btn btn-sm btn-outline-primary active" onclick="cambiarVista('tabla')" id="btnVista-tabla">
+                <i class="fas fa-table"></i> Tabla
+              </button>
+              <button class="btn btn-sm btn-outline-primary" onclick="cambiarVista('tarjetas')" id="btnVista-tarjetas">
+                <i class="fas fa-th"></i> Tarjetas
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Vista de Tabla -->
+        <div id="vista-tabla" class="vista-citas active">
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Cliente</th>
+                  <th>Teléfono</th>
+                  <th>Barbero</th>
+                  <th>Servicio</th>
+                  <th>Fecha</th>
+                  <th>Hora</th>
+                  <th>Costo</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="citas-tabla-body">
+                <tr>
+                  <td colspan="9" class="text-center">
+                    <div class="loading"></div>
+                    <p>Cargando citas...</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Vista de Tarjetas -->
+        <div id="vista-tarjetas" class="vista-citas">
+          <div class="row" id="citas-tarjetas-container">
+            <div class="col-12 text-center">
+              <div class="loading"></div>
+              <p>Cargando citas...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sin resultados -->
+      <div id="sin-resultados" class="sin-resultados" style="display: none;">
+        <div class="sin-resultados-content">
+          <i class="fas fa-calendar-times"></i>
+          <h3>No se encontraron citas</h3>
+          <p>No hay citas registradas que coincidan con los filtros aplicados.</p>
+          <button class="btn btn-primary" onclick="window.location.href='reservar-cita.html'">
+            <i class="fas fa-plus"></i> Registrar Primera Cita
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal de Detalles de Cita -->
+  <div class="modal fade" id="detallesCitaModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"><i class="fas fa-info-circle"></i> Detalles de la Cita</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body" id="detallesCitaContent">
+          <!-- Contenido dinámico -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Confirmación de Eliminación -->
+  <div class="modal fade" id="confirmarEliminacionModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"><i class="fas fa-exclamation-triangle text-warning"></i> Confirmar Eliminación</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p>¿Está seguro que desea eliminar esta cita?</p>
+          <div id="citaAEliminar"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-danger" onclick="confirmarEliminacion()">
+            <i class="fas fa-trash"></i> Eliminar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="../js/bootstrap.bundle.min.js"></script>
+  <script src="citas-registradas.js"></script>
+</body>
+</html>
