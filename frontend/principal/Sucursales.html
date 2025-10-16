@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Sucursales - El Mapache Bigotón</title>
+  
+  <!-- Bootstrap local -->
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Font Awesome y Google Fonts -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Estilos propios -->
+  <link href="style.css" rel="stylesheet">
+  <link href="Sucursales.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html"><i class="fas fa-cut"></i>El Mapache Bigotón</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html#principal">Principal</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="index.html#barberos">Barberos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="index.html#servicios">Servicios</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="Sucursales.html">Sucursales</a>
+          </li>
+        </ul>
+        <button class="btn btn-login" onclick="verCitasRegistradas()">
+          <i class="fas fa-calendar-check"></i> Citas Registradas
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Sucursales Section -->
+  <section class="sucursales-section">
+    <div class="container">
+      <div class="sucursales-header">
+        <h2><i class="fas fa-map-marked-alt"></i> Gestión de Sucursales</h2>
+        <p>Administra las ubicaciones de la barbería</p>
+        <div class="header-actions">
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#nuevaSucursalModal">
+            <i class="fas fa-plus"></i> Nueva Sucursal
+          </button>
+          <button class="btn btn-secondary" onclick="actualizarSucursales()">
+            <i class="fas fa-sync-alt"></i> Actualizar
+          </button>
+        </div>
+      </div>
+
+      <!-- Tabla de Sucursales -->
+      <div class="sucursales-table-container">
+        <div class="table-header">
+          <h4><i class="fas fa-list"></i> Lista de Sucursales</h4>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Dirección</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="sucursales-tabla-body">
+              <tr>
+                <td colspan="3" class="text-center">
+                  <div class="loading"></div>
+                  <p>Cargando sucursales...</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Sin resultados -->
+      <div id="sin-resultados" class="sin-resultados" style="display: none;">
+        <div class="sin-resultados-content">
+          <i class="fas fa-store-slash"></i>
+          <h3>No hay sucursales registradas</h3>
+          <p>Comienza agregando la primera sucursal de la barbería.</p>
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#nuevaSucursalModal">
+            <i class="fas fa-plus"></i> Agregar Primera Sucursal
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal Nueva/Editar Sucursal -->
+  <div class="modal fade" id="nuevaSucursalModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalTitle">
+            <i class="fas fa-plus-circle"></i> Nueva Sucursal
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <form id="sucursalForm">
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="direccion">Dirección *</label>
+              <textarea class="form-control" id="direccion" rows="3" required 
+                        placeholder="Ej: Av. Reforma 123, Centro, Puebla, Pue."
+                        minlength="5"></textarea>
+              <small class="form-text text-muted">Mínimo 5 caracteres</small>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary" id="btnGuardar">
+              <i class="fas fa-save"></i> Guardar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Confirmación de Eliminación -->
+  <div class="modal fade" id="confirmarEliminacionModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">
+            <i class="fas fa-exclamation-triangle text-warning"></i> Confirmar Eliminación
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p>¿Está seguro que desea eliminar esta sucursal?</p>
+          <div id="sucursalAEliminar"></div>
+          <div class="alert alert-warning mt-3">
+            <i class="fas fa-info-circle"></i>
+            <strong>Nota:</strong> No se puede eliminar una sucursal que tenga citas asociadas.
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-danger" onclick="confirmarEliminacion()">
+            <i class="fas fa-trash"></i> Eliminar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="../js/bootstrap.bundle.min.js"></script>
+  <script src="sucursales.js"></script>
+</body>
+</html>

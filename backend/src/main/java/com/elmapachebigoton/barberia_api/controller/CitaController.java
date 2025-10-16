@@ -1,3 +1,4 @@
+
 package com.elmapachebigoton.barberia_api.controller;
 
 import com.elmapachebigoton.barberia_api.model.Cita;
@@ -5,6 +6,7 @@ import com.elmapachebigoton.barberia_api.repository.CitaRepository;
 import com.elmapachebigoton.barberia_api.repository.ClienteRepository;
 import com.elmapachebigoton.barberia_api.repository.BarberoRepository;
 import com.elmapachebigoton.barberia_api.repository.ServicioRepository;
+import com.elmapachebigoton.barberia_api.repository.SucursalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +31,9 @@ public class CitaController {
     @Autowired
     private ServicioRepository servicioRepository;
 
+    @Autowired
+    private SucursalRepository sucursalRepository;
+
     @GetMapping
     public ResponseEntity<Iterable<Cita>> findAll() {
         return ResponseEntity.ok(citaRepository.findAll());
@@ -44,7 +49,8 @@ public class CitaController {
     public ResponseEntity<Cita> create(@RequestBody Cita cita, UriComponentsBuilder uriBuilder) {
         if (!clienteRepository.findById(cita.getCliente().getId()).isPresent()
                 || !barberoRepository.findById(cita.getBarbero().getId()).isPresent()
-                || !servicioRepository.findById(cita.getServicio().getId()).isPresent()) {
+                || !servicioRepository.findById(cita.getServicio().getId()).isPresent()
+                || !sucursalRepository.findById(cita.getSucursal().getId()).isPresent()) {
             return ResponseEntity.unprocessableEntity().build();
         }
 
@@ -58,7 +64,8 @@ public class CitaController {
         if (!citaRepository.findById(id).isPresent()
                 || !clienteRepository.findById(cita.getCliente().getId()).isPresent()
                 || !barberoRepository.findById(cita.getBarbero().getId()).isPresent()
-                || !servicioRepository.findById(cita.getServicio().getId()).isPresent()) {
+                || !servicioRepository.findById(cita.getServicio().getId()).isPresent()
+                || !sucursalRepository.findById(cita.getSucursal().getId()).isPresent()) {
             return ResponseEntity.unprocessableEntity().build();
         }
 

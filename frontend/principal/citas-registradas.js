@@ -109,6 +109,10 @@ function mostrarCitasTabla() {
                     <strong>${cita.cliente.nombre}</strong>
                 </td>
                 <td>${cita.cliente.telefono}</td>
+                <td>
+                    <i class="fas fa-map-marker-alt text-secondary"></i>
+                    ${cita.sucursal ? cita.sucursal.direccion : 'N/A'}
+                </td>
                 <td>${cita.barbero.nombre}</td>
                 <td>${cita.servicio.descripcion}</td>
                 <td>${fechaFormateada}</td>
@@ -161,6 +165,10 @@ function mostrarCitasTarjetas() {
                     </div>
                     
                     <div class="cita-card-body">
+                        <div class="info-item">
+                            <i class="fas fa-map-marked-alt"></i>
+                            <span>${cita.sucursal ? cita.sucursal.direccion : 'N/A'}</span>
+                        </div>
                         <div class="info-item">
                             <i class="fas fa-cut"></i>
                             <span>${cita.barbero.nombre}</span>
@@ -328,6 +336,10 @@ function mostrarModalDetalles(cita) {
                 <span>${cita.cliente.telefono}</span>
             </div>
             <div class="detalle-item">
+                <label>Sucursal</label>
+                <span>${cita.sucursal ? cita.sucursal.direccion : 'N/A'}</span>
+            </div>
+            <div class="detalle-item">
                 <label>Barbero</label>
                 <span>${cita.barbero.nombre}</span>
             </div>
@@ -377,6 +389,7 @@ function confirmarEliminarCita(citaId) {
     document.getElementById('citaAEliminar').innerHTML = `
         <div class="alert alert-warning">
             <strong>Cliente:</strong> ${cita.cliente.nombre}<br>
+            <strong>Sucursal:</strong> ${cita.sucursal ? cita.sucursal.direccion : 'N/A'}<br>
             <strong>Fecha:</strong> ${fechaFormateada} a las ${horaFormateada}<br>
             <strong>Servicio:</strong> ${cita.servicio.descripcion}
         </div>
@@ -448,7 +461,6 @@ function ocultarSinResultados() {
 
 // Mostrar notificaciones
 function mostrarNotificacion(mensaje, tipo) {
-    // Crear elemento de notificación
     const notificacion = document.createElement('div');
     notificacion.className = `alert alert-${tipo === 'success' ? 'success' : 'danger'} notification`;
     notificacion.innerHTML = `
@@ -456,7 +468,6 @@ function mostrarNotificacion(mensaje, tipo) {
         ${mensaje}
     `;
     
-    // Agregar estilos
     notificacion.style.cssText = `
         position: fixed;
         top: 20px;
@@ -471,7 +482,6 @@ function mostrarNotificacion(mensaje, tipo) {
     
     document.body.appendChild(notificacion);
     
-    // Eliminar después de 3 segundos
     setTimeout(() => {
         notificacion.style.animation = 'slideOutRight 0.3s ease';
         setTimeout(() => {

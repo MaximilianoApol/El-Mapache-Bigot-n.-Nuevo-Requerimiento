@@ -36,4 +36,10 @@ public class Cita {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Servicio servicio;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="id_sucursal", nullable = false)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Sucursal sucursal;
 }

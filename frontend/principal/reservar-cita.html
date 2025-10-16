@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -34,6 +35,9 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="index.html#servicios">Servicios</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="Sucursales.html">Sucursales</a>
           </li>
         </ul>
         <button class="btn btn-login" onclick="verCitasRegistradas()">
@@ -80,6 +84,17 @@
                       <input type="tel" class="form-control" id="clienteTelefono" required>
                     </div>
                   </div>
+                </div>
+              </div>
+
+              <!-- Selección de sucursal -->
+              <div class="form-section">
+                <h4><i class="fas fa-map-marked-alt"></i> Seleccionar Sucursal</h4>
+                <div class="form-group">
+                  <label for="sucursalSelect">Sucursal *</label>
+                  <select class="form-control" id="sucursalSelect" required>
+                    <option value="">Cargando sucursales...</option>
+                  </select>
                 </div>
               </div>
 

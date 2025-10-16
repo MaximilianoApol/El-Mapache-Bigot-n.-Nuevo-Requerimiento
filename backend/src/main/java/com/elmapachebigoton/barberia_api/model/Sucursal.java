@@ -6,23 +6,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "servicio")
+@Table(name = "sucursal")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Servicio {
+public class Sucursal {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_sucursal")
     private Integer id;
 
-    @Column(nullable = false, length = 200)
-    private String descripcion;
-
-    @Column(nullable = false)
-    private Double costo;
-
-    @Column(nullable = false)
-    private String imagenUrl;
-
+    @Column(nullable = false, length = 255)
+    private String direccion;
 }
