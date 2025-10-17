@@ -1,5 +1,6 @@
 package com.elmapachebigoton.barberia_api.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,8 +17,10 @@ public class Cita {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(nullable = false)
     private LocalDateTime fechaHora;
+
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="id_cliente", nullable = false)

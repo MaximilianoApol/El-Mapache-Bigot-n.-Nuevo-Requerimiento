@@ -50,7 +50,7 @@ async function cargarCitas() {
 // Cargar barberos para filtros
 async function cargarBarberos() {
     try {
-        const response = await fetch(`${API_BASE_URL}/barberos`);
+        const response = await fetch(`${API_BASE_URL}/api/barberos`);
         if (!response.ok) throw new Error('Error al cargar barberos');
         
         barberos = await response.json();
